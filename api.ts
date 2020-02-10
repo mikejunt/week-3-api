@@ -8,10 +8,12 @@ let selectrep: string = document.getElementById("reportchoice")["value"];
 let teamchoice = document.getElementById("teamchoice");
 let searchchoice = document.getElementById("reportchoice");
 let searchbutton = document.getElementById("gosearch");
+let results = document.getElementById("resultstarget");
 let searchurl: string = ""
-let rosterstring: string = `http://lookup-service-prod.mlb.com/json/named.roster_40.bam?team_id='${curteam}'&roster_40.col_in=name_display_first_last&roster_40.col_in=position_txt&roster_40.col_in=player_id&roster_40.col_in=position_txt&roster_40.col_in=jersey_number`
+let rosterstring: string = ""
 let searchresult: Array<object> = []
-
+let playerdata: Array<object> = []
+let playerpicked: string = ""
 
 interface User {
     username: string;
@@ -25,6 +27,17 @@ function sortcurrent(a: object, b) {
     }
 }
 
+function sortplayers(a: object, b) {
+    if (a["primary_position"] > b["primary_position"]) {
+        return 1;
+    }
+    else if (a["primary_position"] = b["primary_position"]) {
+        return 0;
+    }
+    else if (a["primary_position"] < b["primary_position"]) {
+        return -1;
+    }
+}
 
 function getteams() {
     let proceed: boolean
@@ -63,7 +76,45 @@ function updateteam() {
     }
 }
 
-
+function playerdrill(e) {
+    searchurl = `http://lookup-service-prod.mlb.com/json/named.sport_hitting_tm.bam?league_list_id='mlb'&game_type='R'&season='2019'&player_id='${playerpicked}'&sport_hitting_tm.col_in=avg&sport_hitting_tm.col_in=hr&sport_hitting_tm.col_in=rbi&sport_hitting_tm.col_in=avg&sport_hitting_tm.col_in=ops&sport_hitting_tm.col_in=sb`
+    console.log(searchurl)
+    let proceed: boolean
+    fetch(`${searchurl}`)
+        .then(function (response) {
+            if (response.status == 200) {
+                proceed = true;
+                return response.json()
+            }
+            else {
+                proceed = false;
+            }
+        })
+        .then(function (res) {
+            if (proceed = false) {
+                alert("Service unavailable.");
+            }
+            else playerdata = res["sport_hitting_tm"]["queryResults"]["row"];
+            console.log(playerdata)
+            let quality: string = "";
+            if (parseFloat(playerdata["ops"]) > 1.000) {
+                quality = "MVP caliber"
+            }
+            else if (parseFloat(playerdata["ops"]) > 0.900) {
+                quality = "fantastic"
+            }
+            else if (parseFloat(playerdata["ops"]) > 0.800) {
+                quality = "quite good"
+            }
+            else if (parseFloat(playerdata["ops"]) > 0.700) {
+                quality = "pretty average"
+            }
+            else if (parseFloat(playerdata["ops"]) < 0.700) {
+                quality = "not good at all"
+            }
+            alert(`He hit ${playerdata["avg"]}, with ${playerdata["hr"]} home runs and ${playerdata["rbi"]} runs batted in.  His ${playerdata["ops"]} OPS was ${quality}.`)
+        })
+}
 
 document.getElementById("logout").addEventListener("click", function () {
     localStorage.clear();
@@ -71,13 +122,13 @@ document.getElementById("logout").addEventListener("click", function () {
 })
 
 document.getElementById("gosearch").addEventListener("click", function () {
+    lastteam = curteam;
+    curteam = teamchoice["value"];
     if (lastteam !== curteam) {
-        lastteam = curteam;
-        curteam = teamchoice["value"];
         updateteam()
     }
     let searchpicked: string = searchchoice["value"];
-    if (searchpicked === "roster") { searchurl = rosterstring }
+    if (searchpicked === "roster") { searchurl = `http://lookup-service-prod.mlb.com/json/named.roster_40.bam?team_id='${curteam}'&roster_40.col_in=name_display_first_last&roster_40.col_in=position_txt&roster_40.col_in=player_id&roster_40.col_in=position_txt&roster_40.col_in=jersey_number&roster_40.col_in=primary_position` }
     let proceed: boolean
     fetch(`${searchurl}`)
         .then(function (response) {
@@ -94,7 +145,42 @@ document.getElementById("gosearch").addEventListener("click", function () {
                 alert("Service unavailable.");
             }
             else searchresult = res["roster_40"]["queryResults"]["row"];
-            console.log(searchresult)
+            // for (let i = 0; i < searchresult.length; i++) {
+            //     switch (searchresult[i]["position_txt"]) {
+            //         case "P": {searchresult[i]["primary_position"] = "1"; break }
+            //         case "C": {searchresult[i]["primary_position"] = "2"; break }
+            //         case "1B": {searchresult[i]["primary_position"] = "3"; break }
+            //         case "2B": {searchresult[i]["primary_position"] = "4"; break }
+            //         case "3B": {searchresult[i]["primary_position"] = "6"; break }
+            //         case "SS": {searchresult[i]["primary_position"] = "5"; break }
+            //         case "LF": {searchresult[i]["primary_position"] = "7"; break }
+            //         case "CF": {searchresult[i]["primary_position"] = "8"; break }
+            //         case "RF": {searchresult[i]["primary_position"] = "9"; break }
+            //     }
+            // }
+            console.log(searchresult);
+            results.innerHTML = ""
+            let title = document.createElement("table");
+            title.innerHTML = `<tr><th>Number</th><th>Player</th><th>Position</th></tr>`
+            title.classList.add("table")
+            title.classList.add("table-dark")
+            title.classList.add("table-bordered")
+            title.classList.add(`bg${curteam}`)
+            results.append(title)
+            for (let i = 0; i < searchresult.length; i++) {
+                let line = document.createElement("tr");
+                line.innerHTML = `<td>${searchresult[i]["jersey_number"]}</td><td id="${searchresult[i]["player_id"]}">${searchresult[i]["name_display_first_last"]}</td><td>${searchresult[i]["position_txt"]}</td>`;
+                title.append(line);
+                if (searchresult[i]["position_txt"] === "P") {
+                    document.getElementById(`${searchresult[i]["player_id"]}`).addEventListener("click", function () {
+                        console.log("pitcher drilldown for later use")
+                    })
+                }
+                else document.getElementById(`${searchresult[i]["player_id"]}`).addEventListener("click", function (e) {
+                    playerpicked = this.id
+                    playerdrill(e);
+                })
+            }
         })
 
 })
