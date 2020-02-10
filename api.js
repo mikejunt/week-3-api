@@ -52,6 +52,7 @@
             document.getElementById("usernamedisplay").innerText = " " + localStorage.getItem("username");
             updateteam();
         });
+        document.getElementById("user-header").classList.add("bg" + favteam);
     }
     function updateteam() {
         teamlist.sort(function (a, b) { return a["name_display_full"].localeCompare(b["name_display_full"]); });

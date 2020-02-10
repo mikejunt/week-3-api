@@ -60,7 +60,7 @@ function getteams() {
             document.getElementById("usernamedisplay").innerText = ` ${localStorage.getItem("username")}`;
             updateteam();
         })
-
+    document.getElementById("user-header").classList.add(`bg${favteam}`);
 }
 
 function updateteam() {
