@@ -76,7 +76,7 @@ function updateteam() {
     }
 }
 
-function playerdrill(e) {
+function playerdrill() {
     searchurl = `http://lookup-service-prod.mlb.com/json/named.sport_hitting_tm.bam?league_list_id='mlb'&game_type='R'&season='2019'&player_id='${playerpicked}'&sport_hitting_tm.col_in=avg&sport_hitting_tm.col_in=hr&sport_hitting_tm.col_in=rbi&sport_hitting_tm.col_in=avg&sport_hitting_tm.col_in=ops&sport_hitting_tm.col_in=sb`
     console.log(searchurl)
     let proceed: boolean
@@ -113,6 +113,31 @@ function playerdrill(e) {
                 quality = "not good at all"
             }
             alert(`He hit ${playerdata["avg"]}, with ${playerdata["hr"]} home runs and ${playerdata["rbi"]} runs batted in.  His ${playerdata["ops"]} OPS was ${quality}.`)
+        })
+}
+
+function pitcherdrill() {
+    searchurl = `http://lookup-service-prod.mlb.com/json/named.sport_pitching_tm.bam?league_list_id='mlb'&game_type='R'&season='2019'&player_id='${playerpicked}'&sport_pitching_tm.col_in=era&sport_pitching_tm.col_in=ops&sport_pitching_tm.col_in=kbb&sport_pitching_tm.col_in=so&sport_pitching_tm.col_in=bb&sport_pitching_tm.col_in=hr`
+    console.log(searchurl)
+    let proceed: boolean
+    fetch(`${searchurl}`)
+        .then(function (response) {
+            if (response.status == 200) {
+                proceed = true;
+                return response.json()
+            }
+            else {
+                proceed = false;
+            }
+        })
+        .then(function (res) {
+            if (proceed = false) {
+                alert("Service unavailable.");
+            }
+            else playerdata = res["sport_pitching_tm"]["queryResults"]["row"];
+            console.log(playerdata)
+            let quality: string = "";
+            alert(`He struck out ${playerdata["so"]} hitters and walked ${playerdata["bb"]}, good for a ${playerdata["kbb"]} k/bb ratio.  His ${playerdata["ops"]} OPS allowed lead to a ${playerdata["era"]} ERA.`)
         })
 }
 
@@ -173,12 +198,13 @@ document.getElementById("gosearch").addEventListener("click", function () {
                 title.append(line);
                 if (searchresult[i]["position_txt"] === "P") {
                     document.getElementById(`${searchresult[i]["player_id"]}`).addEventListener("click", function () {
-                        console.log("pitcher drilldown for later use")
+                        playerpicked=this.id;
+                        pitcherdrill();
                     })
                 }
                 else document.getElementById(`${searchresult[i]["player_id"]}`).addEventListener("click", function (e) {
                     playerpicked = this.id
-                    playerdrill(e);
+                    playerdrill();
                 })
             }
         })
