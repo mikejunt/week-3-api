@@ -78,7 +78,6 @@ function updateteam() {
 
 function playerdrill() {
     searchurl = `http://lookup-service-prod.mlb.com/json/named.sport_hitting_tm.bam?league_list_id='mlb'&game_type='R'&season='2019'&player_id='${playerpicked}'&sport_hitting_tm.col_in=avg&sport_hitting_tm.col_in=hr&sport_hitting_tm.col_in=rbi&sport_hitting_tm.col_in=avg&sport_hitting_tm.col_in=ops&sport_hitting_tm.col_in=sb`
-    console.log(searchurl)
     let proceed: boolean
     fetch(`${searchurl}`)
         .then(function (response) {
@@ -95,7 +94,6 @@ function playerdrill() {
                 alert("Service unavailable.");
             }
             else playerdata = res["sport_hitting_tm"]["queryResults"]["row"];
-            console.log(playerdata)
             let quality: string = "";
             if (parseFloat(playerdata["ops"]) > 1.000) {
                 quality = "MVP caliber"
@@ -118,7 +116,6 @@ function playerdrill() {
 
 function pitcherdrill() {
     searchurl = `http://lookup-service-prod.mlb.com/json/named.sport_pitching_tm.bam?league_list_id='mlb'&game_type='R'&season='2019'&player_id='${playerpicked}'&sport_pitching_tm.col_in=era&sport_pitching_tm.col_in=ops&sport_pitching_tm.col_in=kbb&sport_pitching_tm.col_in=so&sport_pitching_tm.col_in=bb&sport_pitching_tm.col_in=hr`
-    console.log(searchurl)
     let proceed: boolean
     fetch(`${searchurl}`)
         .then(function (response) {
@@ -135,7 +132,6 @@ function pitcherdrill() {
                 alert("Service unavailable.");
             }
             else playerdata = res["sport_pitching_tm"]["queryResults"]["row"];
-            console.log(playerdata)
             let quality: string = "";
             alert(`He struck out ${playerdata["so"]} hitters and walked ${playerdata["bb"]}, good for a ${playerdata["kbb"]} k/bb ratio.  His ${playerdata["ops"]} OPS allowed lead to a ${playerdata["era"]} ERA.`)
         })
@@ -183,7 +179,6 @@ document.getElementById("gosearch").addEventListener("click", function () {
             //         case "RF": {searchresult[i]["primary_position"] = "9"; break }
             //     }
             // }
-            console.log(searchresult);
             results.innerHTML = ""
             let title = document.createElement("table");
             title.innerHTML = `<tr><th>Number</th><th>Player</th><th>Position</th></tr>`
