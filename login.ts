@@ -1,5 +1,5 @@
 // users array
-
+(function () {
 let userlist: Array<User> = [{ username: "Mike", password: "password", favteam: "119" }, { username: "Sarah", password: "password", favteam: "134" }, { username: "Justin", password: "password", favteam: "137" }]
 let logbutton = document.getElementById("login");
 let userfield = document.getElementById("user");
@@ -27,3 +27,4 @@ logbutton.addEventListener("click", function () {
         errorfield.innerText = "Username or password incorrect."
     }
 })
+})()
