@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="api.css">
     <style>
 
@@ -13,9 +14,25 @@
 </head>
 
 <body>
-    <div id="teammenu"><label for="team-select">Team:</label><select name="team-select" id="teamchoice"></select></div>
-    <div style="height: 50px; width: 50px; font-size: 30px" id="changetarget">T</div>
-    <button id="logout">Logout</button>
+    <header class="navbar text-right navbar-dark change-target bg000">
+        <div>Welcome, <span id="usernamedisplay">placeholder</span></div><button class="btn btn-light"
+            id="logout">Logout</button>
+    </header>
+    <main class="container-fluid m-0 p-0">
+        <div class="row m-0 px-0 py-2 change-target bg000">
+            <div class="col-12 col-md-5" id="teammenu"><label class="px-0" for="team-select">Select
+                    Team:</label><select class="ml-3" name="team-select" id="teamchoice"></select></div>
+            <div class="col-12 col-md-5"><label class="px-0" for="report-select">Select
+                    Report:</label><select class="ml-3" name="report-select" id="reportchoice">
+                    <option value="roster">See Current Roster</option><option value="trans">Recent Moves</option>
+                </select></div>
+            <div class="col-12 col-md-2"><button class="btn btn-light" id="gosearch">Search</button></div>
+        </div>
+        <section id="resultstarget"></section>
+    </main>
+
+
+
 </body>
 <script src="api.js"></script>
 

@@ -2,7 +2,11 @@
 let teamlist: Array<object> = []
 let favteam: string = localStorage.getItem("favteam")
 let curteam: string = favteam
-let lastteam: string = ""
+let lastteam: string = "000"
+let selectteam: string = document.getElementById("teamchoice")["value"];
+let selectrep: string = document.getElementById("reportchoice")["value"];
+let choicemenu = document.getElementById("teamchoice");
+
 
 interface User {
     username: string;
@@ -10,8 +14,8 @@ interface User {
     favteam: string;
 }
 
-function sortfavorite(a: object, b) {
-    if (a["mlb_org_id"] === favteam) {
+function sortcurrent(a: object, b) {
+    if (a["mlb_org_id"] === curteam) {
         return -1;
     }
 }
@@ -34,23 +38,30 @@ function getteams() {
                 alert("Service unavailable.");
             }
             else teamlist = res["team_all_season"]["queryResults"]["row"]
-            teamlist.sort((a, b) => a["name_display_full"].localeCompare(b["name_display_full"]))
-            teamlist.sort(sortfavorite)
-            for (let i = 0;i<teamlist.length;i++) {
-                let entry = document.createElement("option");
-                entry.value = `${teamlist[i]["mlb_org_id"]}`
-                entry.innerText = `${teamlist[i]["name_display_full"]}`
-                document.getElementById("teamchoice").append(entry)
-            }
-            document.getElementById("changetarget").classList.add(`bg${favteam}`)
+            document.getElementById("usernamedisplay").innerText = ` ${localStorage.getItem("username")}`;
+            updateteam();
         })
 
 }
 
-document.getElementById("logout").addEventListener("click",function(){
+function updateteam() {
+    teamlist.sort((a, b) => a["name_display_full"].localeCompare(b["name_display_full"]))
+    teamlist.sort(sortcurrent)
+    choicemenu.innerHTML = ""
+    for (let i = 0; i < teamlist.length; i++) {
+        let entry = document.createElement("option");
+        entry.value = `${teamlist[i]["mlb_org_id"]}`
+        entry.innerText = `${teamlist[i]["name_display_full"]}`
+        choicemenu.append(entry)
+        document.querySelectorAll(".change-target").forEach(object => { object.classList.add(`bg${curteam}`) });
+        document.querySelectorAll(".change-target").forEach(object => { object.classList.remove(`bg${lastteam}`) });
+    }
+    lastteam = curteam
+}
+
+document.getElementById("logout").addEventListener("click", function () {
     localStorage.clear();
     window.location.href = "index.html"
 })
-
 
 getteams()

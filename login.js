@@ -11,7 +11,7 @@ logbutton.addEventListener("click", function () {
     else {
         var userquery = userlist.filter(function (obj) { return obj["username"] === userfield["value"] && obj["password"] === passfield["value"]; });
         if (userquery.length === 1) {
-            localStorage.setItem("Username", "" + userquery[0]["username"]);
+            localStorage.setItem("username", "" + userquery[0]["username"]);
             localStorage.setItem("favteam", "" + userquery[0]["favteam"]);
             window.location.href = "api.html";
         }
