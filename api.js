@@ -172,6 +172,8 @@
             //         case "RF": {searchresult[i]["primary_position"] = "9"; break }
             //     }
             // }
+            searchresult.sort(sortplayers);
+            console.log(searchresult);
             results.innerHTML = "";
             var title = document.createElement("table");
             title.innerHTML = "<tr><th>Number</th><th>Player</th><th>Position</th></tr>";
