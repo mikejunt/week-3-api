@@ -32,7 +32,7 @@ function sortplayers(a, b) {
 }
 function getteams() {
     var proceed;
-    fetch("http://lookup-service-prod.mlb.com/json/named.team_all_season.bam?sport_code='mlb'&all_star_sw='N'&season='2019'&team_all_season.col_in=mlb_org_id&team_all_season.col_in=name_display_full")
+    fetch("https://lookup-service-prod.mlb.com/json/named.team_all_season.bam?sport_code='mlb'&all_star_sw='N'&season='2019'&team_all_season.col_in=mlb_org_id&team_all_season.col_in=name_display_full")
         .then(function (response) {
         if (response.status == 200) {
             proceed = true;
@@ -66,7 +66,7 @@ function updateteam() {
     }
 }
 function playerdrill() {
-    searchurl = "http://lookup-service-prod.mlb.com/json/named.sport_hitting_tm.bam?league_list_id='mlb'&game_type='R'&season='2019'&player_id='" + playerpicked + "'&sport_hitting_tm.col_in=avg&sport_hitting_tm.col_in=hr&sport_hitting_tm.col_in=rbi&sport_hitting_tm.col_in=avg&sport_hitting_tm.col_in=ops&sport_hitting_tm.col_in=sb";
+    searchurl = "https://lookup-service-prod.mlb.com/json/named.sport_hitting_tm.bam?league_list_id='mlb'&game_type='R'&season='2019'&player_id='" + playerpicked + "'&sport_hitting_tm.col_in=avg&sport_hitting_tm.col_in=hr&sport_hitting_tm.col_in=rbi&sport_hitting_tm.col_in=avg&sport_hitting_tm.col_in=ops&sport_hitting_tm.col_in=sb";
     var proceed;
     fetch("" + searchurl)
         .then(function (response) {
@@ -104,7 +104,7 @@ function playerdrill() {
     });
 }
 function pitcherdrill() {
-    searchurl = "http://lookup-service-prod.mlb.com/json/named.sport_pitching_tm.bam?league_list_id='mlb'&game_type='R'&season='2019'&player_id='" + playerpicked + "'&sport_pitching_tm.col_in=era&sport_pitching_tm.col_in=ops&sport_pitching_tm.col_in=kbb&sport_pitching_tm.col_in=so&sport_pitching_tm.col_in=bb&sport_pitching_tm.col_in=hr";
+    searchurl = "https://lookup-service-prod.mlb.com/json/named.sport_pitching_tm.bam?league_list_id='mlb'&game_type='R'&season='2019'&player_id='" + playerpicked + "'&sport_pitching_tm.col_in=era&sport_pitching_tm.col_in=ops&sport_pitching_tm.col_in=kbb&sport_pitching_tm.col_in=so&sport_pitching_tm.col_in=bb&sport_pitching_tm.col_in=hr";
     var proceed;
     fetch("" + searchurl)
         .then(function (response) {
@@ -138,7 +138,7 @@ document.getElementById("gosearch").addEventListener("click", function () {
     }
     var searchpicked = searchchoice["value"];
     if (searchpicked === "roster") {
-        searchurl = "http://lookup-service-prod.mlb.com/json/named.roster_40.bam?team_id='" + curteam + "'&roster_40.col_in=name_display_first_last&roster_40.col_in=position_txt&roster_40.col_in=player_id&roster_40.col_in=position_txt&roster_40.col_in=jersey_number&roster_40.col_in=primary_position";
+        searchurl = "https://lookup-service-prod.mlb.com/json/named.roster_40.bam?team_id='" + curteam + "'&roster_40.col_in=name_display_first_last&roster_40.col_in=position_txt&roster_40.col_in=player_id&roster_40.col_in=position_txt&roster_40.col_in=jersey_number&roster_40.col_in=primary_position";
     }
     var proceed;
     fetch("" + searchurl)
