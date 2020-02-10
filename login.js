@@ -4,13 +4,18 @@ var logbutton = document.getElementById("login");
 var userfield = document.getElementById("user");
 var passfield = document.getElementById("pass");
 logbutton.addEventListener("click", function () {
-    var userquery = userlist.filter(function (obj) { return obj["username"] === userfield["value"] && obj["password"] === passfield["value"]; });
-    if (userquery.length === 1) {
-        console.log("Login worked");
-        localStorage.setItem("Username", "" + userquery[0]["username"]);
-        localStorage.setItem("favteam", "" + userquery[0]["favteam"]);
-        window.location.href = "api.html";
+    if (userfield["value"].length < 3 || passfield["value"].length < 8) {
+        console.log("login string verification error");
     }
-    else
-        console.log("Login failed");
+    else {
+        var userquery = userlist.filter(function (obj) { return obj["username"] === userfield["value"] && obj["password"] === passfield["value"]; });
+        if (userquery.length === 1) {
+            console.log("Login worked");
+            localStorage.setItem("Username", "" + userquery[0]["username"]);
+            localStorage.setItem("favteam", "" + userquery[0]["favteam"]);
+            window.location.href = "api.html";
+        }
+        else
+            console.log("Login failed");
+    }
 });

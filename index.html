@@ -5,15 +5,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="api.css">
     <style>
 
     </style>
-</head> <label for="username">Username:</label><input id="user" type="text" name="username">
-<label for="password">Username:</label><input name="password" id="pass" type="password">
-<button id="login">LOG IN</button>
+</head>
+
 <body>
+    <main>
+        <div class="col-sm-4 m-0 p-0"></div>
+        <section class="col-12 col-md-5 m-0 p-0">
+            <div class="login-content">
+                <header class="login-header text-center bg119">Baseball App</header>
+                <div class="form-group">
+                    <div class="p-3"><label for="username">Username:</label><input id="user" type="text" name="username" class="form-control"></div>
+                    <div class="p-3"><label for="password">Password:</label><input name="password" id="pass" type="password" class="form-control"></div>
+                    <div class="btn-spacing text-center pb-4"><button class="btn btn-primary" id="login">LOG IN</button></div>
+                </div>
+            </div>
+        </section>
+        <div class="col-sm-4 p-0 m-0"></div>
+    </main>
 
 </body>
 <script src="login.js"></script>

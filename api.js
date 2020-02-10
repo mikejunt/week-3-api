@@ -37,4 +37,8 @@ function getteams() {
         document.getElementById("changetarget").classList.add("bg" + favteam);
     });
 }
+document.getElementById("logout").addEventListener("click", function () {
+    localStorage.clear();
+    window.location.href = "index.html";
+});
 getteams();
