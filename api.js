@@ -1,6 +1,8 @@
 ///
 var teamlist = [];
-var favteam = "119";
+var favteam = localStorage.getItem("favteam");
+var curteam = favteam;
+var lastteam = "";
 function sortfavorite(a, b) {
     if (a["mlb_org_id"] === favteam) {
         return -1;

@@ -1,7 +1,6 @@
 ///
-let userlist: Array<User> = [{username: "Mike", password: "password", favteam: "119"},{username: "Sarah", password: "password", favteam: "134"},{username: "Justin", password: "password", favteam: "137"}]
 let teamlist: Array<object> = []
-let favteam: string = "119"
+let favteam: string = localStorage.getItem("favteam")
 let curteam: string = favteam
 let lastteam: string = ""
 

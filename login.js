@@ -4,6 +4,13 @@ var logbutton = document.getElementById("login");
 var userfield = document.getElementById("user");
 var passfield = document.getElementById("pass");
 logbutton.addEventListener("click", function () {
-    var userquery = userlist.findIndex(function (obj) { return obj["username"] === userfield["value"]; });
-    console.log(userquery);
+    var userquery = userlist.filter(function (obj) { return obj["username"] === userfield["value"] && obj["password"] === passfield["value"]; });
+    if (userquery.length === 1) {
+        console.log("Login worked");
+        localStorage.setItem("Username", "" + userquery[0]["username"]);
+        localStorage.setItem("favteam", "" + userquery[0]["favteam"]);
+        window.location.href = "api.html";
+    }
+    else
+        console.log("Login failed");
 });
