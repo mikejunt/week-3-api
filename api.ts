@@ -150,7 +150,7 @@ document.getElementById("gosearch").addEventListener("click", function () {
         updateteam()
     }
     let searchpicked: string = searchchoice["value"];
-    if (searchpicked === "roster") { searchurl = `https://lookup-service-prod.mlb.com/json/named.roster_40.bam?team_id='${curteam}'&roster_40.col_in=name_display_first_last&roster_40.col_in=position_txt&roster_40.col_in=player_id&roster_40.col_in=position_txt&roster_40.col_in=jersey_number&roster_40.col_in=primary_position` }
+    if (searchpicked === "roster") { searchurl = `https://lookup-service-prod.mlb.com/json/named.roster_40.bam?team_id='${curteam}'&roster_40.col_in=name_display_first_last&roster_40.col_in=player_id&roster_40.col_in=position_txt&roster_40.col_in=jersey_number&roster_40.col_in=primary_position` }
     let proceed: boolean
     fetch(`${searchurl}`)
         .then(function (response) {
@@ -163,6 +163,7 @@ document.getElementById("gosearch").addEventListener("click", function () {
             }
         })
         .then(function (res) {
+            // console.log(res)
             if (proceed = false) {
                 alert("Service unavailable.");
             }
@@ -180,7 +181,7 @@ document.getElementById("gosearch").addEventListener("click", function () {
             //         case "RF": {searchresult[i]["primary_position"] = "9"; break }
             //     }
             // }
-            searchresult.sort(sortplayers);
+            // searchresult.sort(sortplayers);
             console.log(searchresult)
             results.innerHTML = ""
             let title = document.createElement("table");

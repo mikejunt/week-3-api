@@ -140,7 +140,7 @@
         }
         var searchpicked = searchchoice["value"];
         if (searchpicked === "roster") {
-            searchurl = "https://lookup-service-prod.mlb.com/json/named.roster_40.bam?team_id='" + curteam + "'&roster_40.col_in=name_display_first_last&roster_40.col_in=position_txt&roster_40.col_in=player_id&roster_40.col_in=position_txt&roster_40.col_in=jersey_number&roster_40.col_in=primary_position";
+            searchurl = "https://lookup-service-prod.mlb.com/json/named.roster_40.bam?team_id='" + curteam + "'&roster_40.col_in=name_display_first_last&roster_40.col_in=player_id&roster_40.col_in=position_txt&roster_40.col_in=jersey_number&roster_40.col_in=primary_position";
         }
         var proceed;
         fetch("" + searchurl)
@@ -154,6 +154,7 @@
             }
         })
             .then(function (res) {
+            // console.log(res)
             if (proceed = false) {
                 alert("Service unavailable.");
             }
@@ -172,7 +173,7 @@
             //         case "RF": {searchresult[i]["primary_position"] = "9"; break }
             //     }
             // }
-            searchresult.sort(sortplayers);
+            // searchresult.sort(sortplayers);
             console.log(searchresult);
             results.innerHTML = "";
             var title = document.createElement("table");
