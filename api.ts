@@ -1,5 +1,5 @@
 ///
-(function () {
+// (function () {
 let teamlist: Array<object> = []
 let favteam: string = localStorage.getItem("favteam")
 let curteam: string = favteam
@@ -28,7 +28,7 @@ function sortcurrent(a: object, b) {
     }
 }
 
-function sortplayers(a: object, b) {
+function sortplayers(a: object, b: object) {
     if (a["primary_position"] > b["primary_position"]) {
         return 1;
     }
@@ -211,4 +211,4 @@ document.getElementById("gosearch").addEventListener("click", function () {
 })
 
 getteams()
-})()
+// })()
