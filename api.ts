@@ -32,7 +32,7 @@ function sortplayers(a: object, b: object) {
     if (a["primary_position"] > b["primary_position"]) {
         return 1;
     }
-    else if (a["primary_position"] = b["primary_position"]) {
+    else if (a["primary_position"] === b["primary_position"]) {
         return 0;
     }
     else if (a["primary_position"] < b["primary_position"]) {
@@ -181,7 +181,7 @@ document.getElementById("gosearch").addEventListener("click", function () {
             //         case "RF": {searchresult[i]["primary_position"] = "9"; break }
             //     }
             // }
-            // searchresult.sort(sortplayers);
+            searchresult.sort(sortplayers);
             console.log(searchresult)
             results.innerHTML = ""
             let title = document.createElement("table");
