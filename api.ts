@@ -1,5 +1,5 @@
 ///
-// (function () {
+(function () {
 let teamlist: Array<object> = []
 let favteam: string = localStorage.getItem("favteam")
 let curteam: string = favteam
@@ -214,4 +214,4 @@ document.getElementById("gosearch").addEventListener("click", function () {
 })
 
 getteams()
-// })()
+})()
