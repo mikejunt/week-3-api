@@ -22,12 +22,14 @@ interface User {
     favteam: string;
 }
 
+// functionality exported
 function sortcurrent(a: object, b) {
     if (a["mlb_org_id"] === curteam) {
         return -1;
     }
 }
 
+// functionality exported
 function sortplayers(a: object, b: object) {
     if (a["primary_position"] > b["primary_position"]) {
         return 1;
@@ -39,6 +41,7 @@ function sortplayers(a: object, b: object) {
         return -1;
     }
 }
+
 
 function getteams() {
     let proceed: boolean
@@ -62,7 +65,7 @@ function getteams() {
         })
     document.getElementById("user-header").classList.add(`bg${favteam}`);
 }
-
+// functionality exported
 function updateteam() {
     teamlist.sort((a, b) => a["name_display_full"].localeCompare(b["name_display_full"]))
     teamlist.sort(sortcurrent)
